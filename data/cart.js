@@ -30,16 +30,8 @@ export function deleteFromCart (productId) {
   const newCart = [];
 
   cart.forEach((cartItem) => {
-    if (cartItem.productId === productId) {
-      const newQuantity = cartItem.quantity - 1;
-      if (newQuantity > 0) {
-        newCart.push({
-          productId: cartItem.productId,
-          quantity: newQuantity,
-        });
-      }
-    } else {
-      newCart.push(cartItem);
+    if (cartItem.productId !== productId) {
+      newCart.push(cartItem)
     }
   });
   cart = newCart;
