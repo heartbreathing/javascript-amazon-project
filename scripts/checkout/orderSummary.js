@@ -3,11 +3,7 @@ import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.j
 import { products, getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-
-
-const today = dayjs();
-const deliveryDate = today.add(7, 'days');
-console.log(deliveryDate.format('dddd, MMMM D'));
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 export function renderOderSummary () {
 
@@ -16,7 +12,7 @@ export function renderOderSummary () {
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
     const matchingProduct = getProduct(productId);
-    
+
     const deliveryOptionId = cartItem.deliveryOptionId;
 
     const deliveryOption = getDeliveryOption(deliveryOptionId);
@@ -119,6 +115,7 @@ export function renderOderSummary () {
       console.log(container);
       container.remove();
 
+      renderPaymentSummary();
 
     });
   });
@@ -129,6 +126,7 @@ export function renderOderSummary () {
       console.log(element);
       updateDeliveryOption(productId, deliveryOptionId);
       renderOderSummary();
+      renderPaymentSummary();
     });
 
   });
